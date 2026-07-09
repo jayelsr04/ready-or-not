@@ -1,0 +1,31 @@
+.confirm-status-modal {
+  &__headline {
+    @apply text-center text-xl font-bold text-black;
+  }
+
+  &__highlight {
+    &--blue {
+      @apply text-blue-500;
+    }
+
+    &--pink {
+      @apply text-red-300;
+    }
+  }
+
+  &__body {
+    @apply flex items-center justify-center gap-2 text-center text-sm text-black;
+  }
+
+  &__question {
+    @apply text-center text-sm text-black;
+  }
+
+  &__actions {
+    @apply flex items-center justify-center gap-4;
+  }
+}
+
+:host ::ng-deep .btn--outline.btn--blue {
+  @apply border-blue-600 text-blue-600;
+}

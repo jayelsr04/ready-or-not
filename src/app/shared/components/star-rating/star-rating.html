@@ -1,0 +1,22 @@
+<div
+  class="star-rating"
+  [class.star-rating--readonly]="readonlyMode()"
+  [class.star-rating--sm]="size() === 'sm'"
+  (mouseleave)="onStarHover(null)"
+>
+  @for (index of starIndices; track index) {
+    <button
+      type="button"
+      class="star-rating__star"
+      [class.star-rating__star--filled]="index <= displayRating()"
+      [disabled]="readonlyMode()"
+      [attr.aria-label]="'Rate ' + index + ' out of 5'"
+      (click)="onStarClick(index)"
+      (mouseenter)="onStarHover(index)"
+    >
+      <svg class="star-rating__icon">
+        <use [attr.href]="'icons/icon-sprite.svg#' + (index <= displayRating() ? 'icon-star-filled' : 'icon-star-outline')" />
+      </svg>
+    </button>
+  }
+</div>

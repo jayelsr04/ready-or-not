@@ -1,0 +1,27 @@
+<div
+  class="book-card"
+  [class]="meta().cardBg"
+  draggable="true"
+  role="button"
+  tabindex="0"
+  (dragstart)="onDragStart($event)"
+  (dragend)="onDragEnd()"
+  (click)="onClick()"
+  (keydown.enter)="onClick()"
+>
+  <p class="book-card__title">{{ book().title }}</p>
+  <p class="book-card__author">{{ book().author }}</p>
+
+  @if (displayDate(); as date) {
+    <p class="book-card__date" [class]="meta().dateColor">{{ date | usDate }}</p>
+  }
+
+  @if (book().status === 'finished') {
+    <app-star-rating
+      class="book-card__rating"
+      [rating]="book().rating"
+      [readonlyMode]="true"
+      size="sm"
+    />
+  }
+</div>

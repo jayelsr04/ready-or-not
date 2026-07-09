@@ -1,0 +1,25 @@
+.rate-book-modal {
+  &__row {
+    @apply grid grid-cols-[80px_1fr] items-center gap-3;
+
+    &--review {
+      @apply items-start;
+    }
+  }
+
+  &__label {
+    @apply text-sm font-bold text-black;
+  }
+
+  &__control {
+    @apply block w-full;
+  }
+
+  &__actions {
+    @apply flex items-center justify-center gap-4;
+  }
+}
+
+:host ::ng-deep .btn--outline.btn--blue {
+  @apply border-blue-600 text-blue-600;
+}

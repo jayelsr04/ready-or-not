@@ -1,0 +1,19 @@
+.book-card {
+  @apply relative min-w-[280px] min-h-[80px] text-center cursor-grab select-none rounded-[10px] p-4 shadow-md transition-transform active:cursor-grabbing hover:-translate-y-0.5;
+
+  &__title {
+    @apply font-bold text-black;
+  }
+
+  &__author {
+    @apply italic text-black;
+  }
+
+  &__date {
+    @apply mt-1 text-sm;
+  }
+
+  &__rating {
+    @apply mt-2 block;
+  }
+}

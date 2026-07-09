@@ -1,0 +1,21 @@
+.star-rating {
+  @apply inline-flex items-center gap-1;
+
+  &--readonly {
+    @apply gap-0.5;
+  }
+
+  &--sm {
+    .star-rating__icon {
+      @apply h-3 w-3;
+    }
+  }
+
+  &__star {
+    @apply cursor-pointer border-0 bg-transparent p-0.5 text-amber-400 transition-transform hover:scale-110 disabled:cursor-default disabled:hover:scale-100;
+  }
+
+  &__icon {
+    @apply block h-5 w-5;
+  }
+}

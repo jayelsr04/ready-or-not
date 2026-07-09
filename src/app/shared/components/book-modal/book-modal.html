@@ -1,0 +1,107 @@
+<app-modal
+  [open]="open()"
+  [titleText]="modalTitle()"
+  [accent]="modalAccent()"
+  [showCloseButton]="!isView()"
+  (closed)="closed.emit()"
+>
+  @if (isView()) {
+  <button modal-corner type="button" class="book-modal__edit-link" (click)="onEditClick()">EDIT</button>
+  }
+  @if (isView()) {
+    <button type="button" class="book-modal__delete" aria-label="Delete book forever" (click)="onDeleteClick()">
+      <svg class="book-modal__delete-icon">
+        <use href="icons/icon-sprite.svg#icon-delete" />
+      </svg>
+    </button>
+  }
+
+
+  <div class="book-modal__row">
+    <label class="book-modal__label">Title</label>
+    <ntv-input
+      class="book-modal__control"
+      [ngModel]="title()"
+      (ngModelChange)="title.set($event)"
+      [disabledInput]="isReadonly()"
+      placeholder="Input Book Title"
+    />
+  </div>
+
+  <div class="book-modal__row">
+    <label class="book-modal__label">Author</label>
+    <ntv-input
+      class="book-modal__control"
+      [ngModel]="author()"
+      (ngModelChange)="author.set($event)"
+      [disabledInput]="isReadonly()"
+      placeholder="Input Book Author"
+    />
+  </div>
+
+  @if (showDateStarted()) {
+    <div class="book-modal__row">
+      <label class="book-modal__label">Date Started</label>
+      <input
+        type="date"
+        class="book-modal__date"
+        [value]="dateStarted() ?? ''"
+        [disabled]="isReadonly()"
+        (change)="onDateStartedChange($any($event.target).value || null)"
+      />
+    </div>
+  }
+
+  @if (showDateFinished()) {
+    <div class="book-modal__row">
+      <label class="book-modal__label">Date Finished</label>
+      <input
+        type="date"
+        class="book-modal__date"
+        [value]="dateFinished() ?? ''"
+        [disabled]="isReadonly()"
+        (change)="dateFinished.set($any($event.target).value || null)"
+      />
+    </div>
+  }
+
+  <div class="book-modal__row">
+    <label class="book-modal__label">Status</label>
+    @if (isAdd()) {
+      <ntv-dropdown
+        class="book-modal__control"
+        [options]="statusOptions"
+        [value]="status()"
+        placeholder="Choose"
+        (selectionChange)="onStatusSelect($event)"
+      />
+    } @else {
+      <app-status-badge [status]="effectiveStatus()" />
+    }
+  </div>
+
+  @if (showRatingReview()) {
+    <div class="book-modal__row">
+      <label class="book-modal__label">Rating</label>
+      <app-star-rating [rating]="rating()" [readonlyMode]="isReadonly()" (ratingChange)="rating.set($event)" />
+    </div>
+
+    <div class="book-modal__row book-modal__row--review">
+      <label class="book-modal__label">Review</label>
+      <ntv-textarea
+        class="book-modal__control"
+        [ngModel]="review() ?? ''"
+        (ngModelChange)="review.set($event)"
+        [disabledInput]="isReadonly()"
+        placeholder="Share your thoughts..."
+      />
+    </div>
+  }
+
+  @if (!isView()) {
+    <div modal-footer class="book-modal__actions">
+      <ntv-button variant="accent" color="green" rounded="full" (buttonClick)="onSaveClick()">Save</ntv-button>
+      <ntv-button variant="outline" color="blue" rounded="full" (buttonClick)="closed.emit()">Cancel</ntv-button>
+    </div>
+  }
+</app-modal>

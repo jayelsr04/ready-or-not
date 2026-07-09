@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@ntv360/component-pantry/styles.css';
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  background-image: url('/images/book-board-bg.png');
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+

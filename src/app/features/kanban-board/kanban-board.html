@@ -1,0 +1,60 @@
+<div class="kanban-board">
+  <header class="kanban-board__header">
+    <img class="kanban-board__logo" src="images/brandname.png" alt="ready-or-not" />
+    <app-button class="kanban-board__add-button" (buttonClick)="onAddBookClick()">
+      Add New Book +
+    </app-button>
+  </header>
+
+  <div class="kanban-board__columns">
+    @for (column of columns; track column.status) {
+      <app-kanban-column
+        [status]="column.status"
+        [books]="booksByStatus()[column.status]"
+        (cardClick)="onCardClick($event)"
+        (bookDropped)="onBookDropped(column.status, $event)"
+      />
+    }
+  </div>
+</div>
+
+<app-book-modal
+  [open]="bookModalOpen()"
+  [initialMode]="bookModalMode()"
+  [book]="selectedBook()"
+  (closed)="bookModalOpen.set(false)"
+  (added)="onBookAdded($event)"
+  (edited)="onBookEdited($event)"
+  (deleteRequested)="onDeleteClick($event)"
+/>
+
+<app-dropped-book-modal
+  [open]="droppedModalOpen()"
+  [book]="droppedModalBook()"
+  (closed)="droppedModalOpen.set(false)"
+  (restoreRequested)="onRestoreRequested($event)"
+/>
+
+<app-rate-book-modal
+  [open]="rateModalOpen()"
+  [book]="rateModalBook()"
+  (saved)="onRateSaved($event)"
+  (later)="onRateLater($event)"
+/>
+
+<app-confirm-status-modal
+  [open]="confirmModalOpen()"
+  [variant]="confirmVariant()"
+  (confirmed)="onConfirmConfirmed()"
+  (cancelled)="onConfirmCancelled()"
+/>
+
+@if (toastService.toast(); as toast) {
+  <ntv-toast
+    [variant]="toast.variant"
+    [message]="toast.message"
+    [duration]="3000"
+    position="top-center"
+    (closed)="toastService.dismiss()"
+  />
+}

@@ -1,0 +1,24 @@
+.kanban-board {
+  @apply mx-auto flex min-h-screen max-w-[1440px] flex-col p-8;
+  
+
+  &__header {
+    @apply flex items-center justify-between;
+  }
+
+  &__add-button {
+    @apply mr-0 md:mr-20;
+  }
+  
+  &__title {
+    @apply text-xl font-bold text-black;
+  }
+
+  &__columns {
+    @apply flex flex-1 flex-col gap-6 md:flex-row;
+  }
+
+  &__logo {
+    @apply h-16 w-auto md:h-[180px];
+  }
+}

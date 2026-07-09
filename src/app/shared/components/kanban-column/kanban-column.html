@@ -1,0 +1,18 @@
+<div class="kanban-column">
+  <h2 class="kanban-column__heading">{{ meta().label | uppercase }}</h2>
+
+  <div
+    class="kanban-column__panel"
+    [class]="[meta().columnFrom, meta().columnTo]"
+    [class.kanban-column__panel--drag-over]="isDragOver()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave()"
+    (drop)="onDrop($event)"
+  >
+    <div class="kanban-column__cards">
+      @for (book of books(); track book.id) {
+        <app-book-card [book]="book" (cardClick)="cardClick.emit($event)"/>
+      }
+    </div>
+  </div>
+</div>

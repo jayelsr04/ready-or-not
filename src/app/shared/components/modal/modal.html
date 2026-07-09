@@ -1,0 +1,37 @@
+@if (open()) {
+  <div class="modal-overlay" (click)="onBackdropClick()">
+    <div
+      class="modal"
+      [class.modal--blue]="accent() === 'blue'"
+      [class.modal--violet]="accent() === 'violet'"
+      [class.modal--orange]="accent() === 'orange'"
+      [class.modal--green]="accent() === 'green'"
+      [class.modal--pink]="accent() === 'pink'"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="modal__corner">
+        <ng-content select="[modal-corner]" />
+      </div>
+
+      @if (showCloseButton()) {
+        <button type="button" class="modal__close" aria-label="Close" (click)="closed.emit()">
+          <svg class="modal__close-icon">
+            <use href="icons/icon-sprite.svg#icon-close" />
+          </svg>
+        </button>
+      }
+
+      @if (titleText()) {
+        <h2 class="modal__title">{{ titleText() }}</h2>
+      }
+
+      <div class="modal__body">
+        <ng-content />
+      </div>
+
+      <div class="modal__footer">
+        <ng-content select="[modal-footer]" />
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,25 @@
+.dropped-book-modal {
+  &__row {
+    @apply grid grid-cols-[110px_1fr] items-center gap-3;
+  }
+
+  &__label {
+    @apply text-sm font-bold text-black;
+  }
+
+  &__control {
+    @apply block w-full;
+  }
+
+  &__date {
+    @apply w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-black disabled:bg-gray-50 disabled:text-gray-500;
+  }
+
+  &__actions {
+    @apply flex items-center justify-center gap-4;
+  }
+}
+
+:host ::ng-deep .btn--outline.btn--blue {
+  @apply border-blue-600 text-blue-600;
+}

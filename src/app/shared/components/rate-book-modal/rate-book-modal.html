@@ -1,0 +1,27 @@
+<app-modal
+  [open]="open()"
+  titleText="Rate Your Book"
+  accent="green"
+  [showCloseButton]="false"
+  [closeOnBackdrop]="false"
+>
+  <div class="rate-book-modal__row">
+    <label class="rate-book-modal__label">Rating</label>
+    <app-star-rating [rating]="rating()" (ratingChange)="rating.set($event)" />
+  </div>
+
+  <div class="rate-book-modal__row rate-book-modal__row--review">
+    <label class="rate-book-modal__label">Review</label>
+    <ntv-textarea
+      class="rate-book-modal__control"
+      [ngModel]="review()"
+      (ngModelChange)="review.set($event)"
+      placeholder="Share your thoughts..."
+    />
+  </div>
+
+  <div modal-footer class="rate-book-modal__actions">
+    <ntv-button variant="accent" color="green" rounded="full" (buttonClick)="onSaveClick()">Save</ntv-button>
+    <ntv-button variant="outline" color="blue" rounded="full" (buttonClick)="onLaterClick()">Later</ntv-button>
+  </div>
+</app-modal>

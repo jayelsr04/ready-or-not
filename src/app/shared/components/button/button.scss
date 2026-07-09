@@ -1,0 +1,7 @@
+.app-button {
+  @apply rounded-full border-2 border-blue-600 bg-transparent px-6 py-2 text-sm font-bold text-blue-600 transition-colors;
+
+  &:hover {
+    @apply bg-blue-600 text-white;
+  }
+}

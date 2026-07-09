@@ -1,0 +1,33 @@
+<app-modal [open]="open()" [accent]="accent()" [showCloseButton]="false" [closeOnBackdrop]="false">
+  @if (isRestore()) {
+    <p class="confirm-status-modal__headline">
+      This book will be
+      <span class="confirm-status-modal__highlight confirm-status-modal__highlight--blue">restored</span>
+    </p>
+    <p class="confirm-status-modal__body">
+      This book will go back to
+      <app-status-badge status="in-progress" />
+    </p>
+  } @else if (isDelete()) {
+    <p class="confirm-status-modal__headline">
+      This book will be
+      <span class="confirm-status-modal__highlight confirm-status-modal__highlight--pink">deleted forever</span>
+    </p>
+  } @else {
+    <p class="confirm-status-modal__headline">
+      This book will be
+      <span class="confirm-status-modal__highlight confirm-status-modal__highlight--pink">dropped</span>
+    </p>
+  }
+
+  <p class="confirm-status-modal__question">Are you sure?</p>
+
+  <div modal-footer class="confirm-status-modal__actions">
+    @if (isRestore()) {
+      <ntv-button variant="primary" color="blue" rounded="full" (buttonClick)="confirmed.emit()">Yes, I'm sure.</ntv-button>
+    } @else {
+      <ntv-button variant="primary" color="pink" rounded="full" (buttonClick)="confirmed.emit()">Yes, I'm sure.</ntv-button>
+    }
+    <ntv-button variant="outline" color="blue" rounded="full" (buttonClick)="cancelled.emit()">No, cancel.</ntv-button>
+  </div>
+</app-modal>
