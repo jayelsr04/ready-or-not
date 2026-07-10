@@ -33,6 +33,7 @@
   [book]="droppedModalBook()"
   (closed)="droppedModalOpen.set(false)"
   (restoreRequested)="onRestoreRequested($event)"
+  (deleteRequested)="onDeleteClick($event)"
 />
 
 <app-rate-book-modal

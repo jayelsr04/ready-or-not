@@ -95,16 +95,19 @@ export class KanbanBoard {
 
   /**
    * @protected
-   * @description Opens the delete confirmation for a card's delete icon.
+   * @description Opens the delete confirmation for a book, requested either from the
+   * book details modal's delete icon or the dropped book modal's delete icon.
    * @param book - The book to delete.
    * @returns {void}
    */
   protected onDeleteClick(book: Book): void {
     this.bookModalOpen.set(false);
+    this.droppedModalOpen.set(false);
     this.confirmVariant.set('delete');
     this.confirmTargetId = book.id;
     this.confirmModalOpen.set(true);
   }
+
 
   /**
    * @protected

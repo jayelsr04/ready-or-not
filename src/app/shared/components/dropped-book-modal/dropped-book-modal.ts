@@ -30,6 +30,8 @@ export class DroppedBookModal {
   readonly closed = output<void>();
   /** Emitted with the book id when the user requests to restore it. */
   readonly restoreRequested = output<string>();
+  /** Emitted with the book when the user requests to permanently delete it. */
+  readonly deleteRequested = output<Book>();
 
   // ================================
   // ===== Custom Methods ========
@@ -44,6 +46,18 @@ export class DroppedBookModal {
     const book = this.book();
     if (book) {
       this.restoreRequested.emit(book.id);
+    }
+  }
+
+  /**
+   * @protected
+   * @description Requests permanent deletion of the dropped book currently being viewed.
+   * @returns {void}
+   */
+  protected onDeleteClick(): void {
+    const book = this.book();
+    if (book) {
+      this.deleteRequested.emit(book);
     }
   }
 }

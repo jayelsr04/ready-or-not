@@ -1,5 +1,11 @@
 @if (book(); as book) {
   <app-modal [open]="open()" titleText="Dropped Book" accent="pink" (closed)="closed.emit()">
+    <button type="button" class="dropped-book-modal__delete" aria-label="Delete book forever" (click)="onDeleteClick()">
+      <svg class="dropped-book-modal__delete-icon">
+        <use href="icons/icon-sprite.svg#icon-delete" />
+      </svg>
+    </button>
+
     <div class="dropped-book-modal__row">
       <label class="dropped-book-modal__label">Title</label>
       <ntv-input class="dropped-book-modal__control" [ngModel]="book.title" [disabledInput]="true" />

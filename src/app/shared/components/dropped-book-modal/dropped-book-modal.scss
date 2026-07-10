@@ -18,6 +18,14 @@
   &__actions {
     @apply flex items-center justify-center gap-4;
   }
+
+  &__delete {
+    @apply absolute left-6 top-6 cursor-pointer border-0 bg-transparent p-0 text-black/70 hover:text-black;
+  }
+
+  &__delete-icon {
+    @apply block h-4 w-4;
+  }
 }
 
 :host ::ng-deep .btn--outline.btn--blue {
