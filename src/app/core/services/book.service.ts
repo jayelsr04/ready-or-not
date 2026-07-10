@@ -24,8 +24,6 @@ export class BookService {
   // ================================
   private readonly _books = signal<Book[]>([...SEED_BOOKS]);
 
-  /** All books currently tracked on the board. */
-  readonly books = this._books.asReadonly();
 
   /** Books grouped by their current column. */
   readonly booksByStatus = computed<Record<BookStatus, Book[]>>(() => {

@@ -20,9 +20,6 @@ export class ToastService {
   /** Current toast to render, or null when none is active. */
   readonly toast = this._toast.asReadonly();
 
-  /** Whether a toast is currently visible. */
-  private readonly isVisible = computed(() => this._toast() !== null);
-
   // ================================
   // ===== Custom Methods ========
   // ================================

@@ -10,9 +10,6 @@
     @apply mr-0 md:mr-20;
   }
   
-  &__title {
-    @apply text-xl font-bold text-black;
-  }
 
   &__columns {
     @apply flex flex-1 flex-col gap-6 md:flex-row;
