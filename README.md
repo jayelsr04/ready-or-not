@@ -39,7 +39,7 @@ src/app/
     └── kanban-board/     # Top-level page: composes the columns + every modal
 ```
 
-Reusable presentation (`Modal`, `Button`) is built on Angular content projection (`ng-content`) with named slots (`modal-corner`, default body, `modal-footer`); feature-specific modals (`BookModal`, `RateBookModal`, etc.) own their own state and project their content into the shared shell. See [`codestandards.md`](./codestandards.md) for the full naming, JSDoc, and file-organization conventions this repo follows.
+Reusable presentation (`Modal`, `Button`) is built on Angular content projection (`ng-content`) with named slots (`modal-corner`, default body, `modal-footer`); feature-specific modals (`BookModal`, `RateBookModal`, etc.) own their own state and project their content into the shared shell. 
 
 ## Getting Started
 
