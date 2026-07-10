@@ -1,59 +1,99 @@
-# ready-or-not-v1
+# Ready or Not 📚
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.5.
+A reading-tracker Kanban board built with Angular. Drag books through **To Read → In Progress → Finished**, or drop them into **Dropped** — with guided popups for rating, confirming, and restoring books along the way.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **Four-column Kanban board** — To Read, In Progress, Finished, Dropped — each with its own accent color.
+- **Drag & drop transitions** with rules enforced per the product spec (e.g. Finished and Dropped cards can't be dragged back out; disallowed moves show a toast).
+- **Add / View / Edit Book modal** — a single modal that adapts its fields and editability based on the book's column and current mode.
+- **Rate Your Book popup** — triggers automatically when a card is dragged into Finished; supports a non-sequential 1–5 star rating plus a review, with **Save** or **Later**.
+- **Dropped Book modal** — read-only detail view for dropped books, with **Restore** and **permanent delete** actions.
+- **Confirmation popups** for restore, drop, and delete actions.
+- **Toast notifications** for validation errors and disallowed drag actions.
+- Server-side rendering (SSR) via Angular's built-in `@angular/ssr`.
 
-```bash
-ng serve
+## Tech Stack
+
+- **Angular 22** — standalone components, signals (`signal`/`computed`/`effect`), new `@if`/`@for` control flow, `OnPush` change detection throughout
+- **TypeScript**
+- **Tailwind CSS** (with BEM-style class names + `@apply` in component SCSS)
+- **@ntv360/component-pantry** — internal shared UI kit (buttons, inputs, dropdown, textarea, toast)
+- **Vitest** — unit testing
+- **Express** — SSR server (`server.mjs`)
+
+## Project Structure
+
+```
+src/app/
+├── core/
+│   ├── dto/            # Book, BookStatus, and event payload types
+│   └── services/        # BookService (board state), ToastService
+├── constants/            # Column metadata, drag-transition rules, star-rating & seed data
+├── shared/
+│   ├── components/       # Modal, Button, BookCard, KanbanColumn, StatusBadge, StarRating,
+│   │                      # BookModal, RateBookModal, ConfirmStatusModal, DroppedBookModal
+│   ├── pipes/             # us-date pipe
+│   └── utils/             # date + book-status helpers
+└── features/
+    └── kanban-board/     # Top-level page: composes the columns + every modal
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Reusable presentation (`Modal`, `Button`) is built on Angular content projection (`ng-content`) with named slots (`modal-corner`, default body, `modal-footer`); feature-specific modals (`BookModal`, `RateBookModal`, etc.) own their own state and project their content into the shared shell. See [`codestandards.md`](./codestandards.md) for the full naming, JSDoc, and file-organization conventions this repo follows.
 
-## Code scaffolding
+## Getting Started
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Prerequisites
+- Node.js 20.19+ or 22+ (Angular 22 requirement)
+- npm
+- Access token for the private `@ntv360` registry (see below)
 
-```bash
-ng generate component component-name
-```
+### Install
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+This project pulls `@ntv360/component-pantry` from a private registry configured in `.npmrc`. Set an `NPM_TOKEN` environment variable with a valid token before installing:
 
 ```bash
-ng build
+export NPM_TOKEN=your-token-here   # or set it in your shell profile / CI secrets
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Development server
 
 ```bash
-ng test
+npm start
+# or: ng serve
 ```
 
-## Running end-to-end tests
+Navigate to `http://localhost:4200/`. The app reloads automatically on source changes.
 
-For end-to-end (e2e) testing, run:
+### Build
 
 ```bash
-ng e2e
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Outputs to `dist/my-app/` (both `browser/` and `server/` bundles, since SSR is enabled).
 
-## Additional Resources
+### Run the SSR server locally (after building)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm run serve:ssr:my-app
+```
+
+### Unit tests
+
+```bash
+npm test
+```
+
+Runs the Vitest suite via `ng test`.
+
+## Deployment
+
+This app is deployed on [Vercel](https://vercel.com), connected to this GitHub repository. Pushing to `main` triggers a production deployment; pushing to any other branch or opening a PR produces a preview deployment. Vercel auto-detects the Angular SSR build output — no custom `vercel.json` is required as long as the project's Framework Preset is set to **Angular**.
+
+> Remember to add `NPM_TOKEN` as an environment variable in the Vercel project settings as well, so installs succeed during the build.
+
+## License
+
+Private project — not currently licensed for external use.
